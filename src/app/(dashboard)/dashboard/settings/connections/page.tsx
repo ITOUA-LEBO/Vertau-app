@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ExternalLink, Check, X, Loader2 } from "lucide-react";
@@ -57,7 +57,7 @@ const PLATFORMS = [
   },
 ];
 
-export default function ConnectionsPage() {
+function ConnectionsContent() {
   const supabase = createClient();
   const searchParams = useSearchParams();
   const [connections, setConnections] = useState<Connection[]>([]);
@@ -219,5 +219,17 @@ export default function ConnectionsPage() {
         Vertau ne publie jamais sans ta confirmation. Tu choisis clip par clip ce que tu publies et où.
       </p>
     </div>
+  );
+}
+
+export default function ConnectionsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-5 h-5 text-[#5C5248] animate-spin" />
+      </div>
+    }>
+      <ConnectionsContent />
+    </Suspense>
   );
 }
