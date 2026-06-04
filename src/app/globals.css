@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ── Fond & Surfaces ─────────────────────────── */
+  --color-background:   #0C0A09;
+  --color-surface-1:    #171310;
+  --color-surface-2:    #211D1A;
+  --color-surface-3:    #2C2723;
+  --color-border:       #302B27;
+  --color-border-subtle:#1F1B18;
+
+  /* ── Texte ───────────────────────────────────── */
+  --color-text-primary:   #FAF7F4;
+  --color-text-secondary: #A8988A;
+  --color-text-tertiary:  #5C5248;
+
+  /* ── Accent ambre ────────────────────────────── */
+  --color-amber-400: #FBBF24;
+  --color-amber-500: #F59E0B;
+  --color-amber-900: #451A03;
+
+  /* ── Statuts ─────────────────────────────────── */
+  --color-success: #4ADE80;
+  --color-warning: #FB923C;
+  --color-error:   #F87171;
+
+  /* ── Typographie ─────────────────────────────── */
+  --font-sans:    var(--font-inter);
+  --font-serif:   var(--font-instrument-serif);
+  --font-mono:    var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #0C0A09;
+  color: #FAF7F4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0C0A09;
+  color: #FAF7F4;
+  min-height: 100svh;
+}
+
+/* ── Grain texture ────────────────────────────────── */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+/* ── Marque de coupe (décor cinéma) ───────────────── */
+.cut-mark {
+  position: relative;
+  overflow: hidden;
+}
+.cut-mark::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #FBBF24 20%,
+    #FBBF24 80%,
+    transparent 100%
+  );
+  opacity: 0.15;
+  transform: rotate(15deg) translateX(30px);
+  transform-origin: top right;
+}
+
+/* ── Scrollbar custom ─────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #171310;
+}
+::-webkit-scrollbar-thumb {
+  background: #302B27;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5C5248;
+}
+
+/* ── Selection ────────────────────────────────────── */
+::selection {
+  background: rgba(251, 191, 36, 0.2);
+  color: #FAF7F4;
+}
+
+/* ── Focus ring ───────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(251, 191, 36, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
